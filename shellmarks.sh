@@ -8,8 +8,8 @@
 # g <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
 # d <bookmark_name>  - Deletes the bookmark
 
-# l                  - Lists all available bookmarks
-# l <prefix>         - Lists the specified bookmarks starting with prefix"
+# lsm                  - Lists all available bookmarks
+# lsm <prefix>         - Lists the specified bookmarks starting with prefix"
 # pd <bookmark_name> - pd is the same as `g` but uses pushd
 # s                  - Saves the default directory
 # g                  - Goes to the default directory
@@ -114,6 +114,27 @@ function d {
 	__unset_dirs
 }
 
+if [[ "`uname`" == "Linux" ]]; then
+	function o {
+		check_help $1
+		source $SDIRS
+		if [ -z $1 ]; then
+			xdg-open "$(eval $(echo echo $(echo \$DIR_DEFAULT)))"
+			__print_pwd_on_action; $*
+		elif [[ "$1" == "-" ]]; then
+			xdg-open $1;
+			shift; $*
+		elif [[ "$1" == ".."  || "$1" == '~' || "$1" == '/' ]]; then
+			xdg-open $1;
+			__print_pwd_on_action; shift; $*
+		else
+			xdg-open "$(eval $(echo echo $(echo \$DIR_$1)))"
+			__print_pwd_on_action; shift; $*
+		fi
+		__unset_dirs
+	}
+fi
+
 if [[ "`uname`" == "Darwin" ]]; then
 
 # open the specifed bookmark
@@ -190,6 +211,10 @@ function check_help {
 		echo 'g <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"'
 		echo 'd <bookmark_name>  - Deletes the bookmark'
 		echo ''
+		if [ "`uname`" = "Linux" ]; then
+			echo 'o <bookmark_name>  - Open the directory associated with "bookmark_name" in file manager'
+			echo ''
+		fi
 		if [ "`uname`" = "Darwin" ]; then
 			echo 'o <bookmark_name>  - Open the directory associated with "bookmark_name" in Finder'
 			echo 'y <bookmark_name>  - Open the directory associated with "bookmark_name" in a new tab'
@@ -197,8 +222,8 @@ function check_help {
 		fi
 		echo 's                  - Saves the default directory'
 		echo 'g                  - Goes to the default directory'
-		echo 'l                  - Lists all available bookmarks'
-		echo 'l <prefix>         - Lists the bookmark starting with "prefix"'
+		echo 'lsm                  - Lists all available bookmarks'
+		echo 'lsm <prefix>         - Lists the bookmark starting with "prefix"'
 		echo '_p <bookmark_name> - Prints the directory associated with "bookmark_name"'
 		echo 'pd <bookmark_name> - Same as "g" but uses pushd '
 		if [ $SHELLMARKS_k ]; then
@@ -210,7 +235,7 @@ function check_help {
 }
 
 # list bookmarks with dirname
-alias l='_bookmarks'
+alias lsm='_bookmarks'
 function _bookmarks {
 	check_help $1
 	source $SDIRS
@@ -236,7 +261,7 @@ function _bookmarks_no_colour {
 }
 
 # list bookmarks without dirname
-function _l {
+function _lsm {
 	source $SDIRS
 	env | grep "^DIR_" | cut -c5- | sort | grep "^.*=" | cut -f1 -d "="
 	__unset_dirs
@@ -256,13 +281,13 @@ function _comp {
 	local curw
 	COMPREPLY=()
 	curw=${COMP_WORDS[COMP_CWORD]}
-	COMPREPLY=($(compgen -W '`_l`' -- $curw))
+	COMPREPLY=($(compgen -W '`_lsm`' -- $curw))
 	return 0
 }
 
 # ZSH completion command
 function _compzsh {
-	reply=($(_l))
+	reply=($(_lsm))
 }
 
 # safe delete line from sdirs
@@ -324,7 +349,7 @@ if [ $SHELLMARKS_k ]; then
 				compadd -U "$i"
 			done
 
-			for f in `_l`;
+			for f in `_lsm`;
 			do
 				compadd  $f
 			done
@@ -333,4 +358,3 @@ if [ $SHELLMARKS_k ]; then
 	fi
 
 fi
-

@@ -16,43 +16,43 @@ Install
 Usage
 -----
 
-  s <bookmark_name>  - Saves the current directory as "bookmark_name"
-  smgo <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
-  d <bookmark_name>  - Deletes the bookmark
-  lsm <bookmark_name>  - Lists the specified bookmark associated with "bookmark_name"
-  lsm                  - Lists all available bookmarks
-  g                  - an alias for smgo
+    s <bookmark_name>     - Saves the current directory as "bookmark_name"
+    smgo <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
+    d <bookmark_name>     - Deletes the bookmark
+    lsm <bookmark_name>   - Lists the specified bookmark associated with "bookmark_name"
+    lsm                   - Lists all available bookmarks
+    g                     - an alias for smgo
 
 
 Additional Features
 -----------------
 
-    pd <bookmark_name> - `pushd` to the directory associated with "bookmark_name"
-    _p <bookmark_name> - Prints the directory associated with "bookmark_name"
-    s                  - Saves the default directory
-    smgo                 - Goes to the default directory
-    smgo -               - Goes to the previous directory
-    o <bookmark_name>  - Open the directory associated with "bookmark_name" using xdg-open
-    g is an alias for smgo
+    pd <bookmark_name>  - `pushd` to the directory associated with "bookmark_name"
+    _p <bookmark_name>  - Prints the directory associated with "bookmark_name"
+    s                   - Saves the default directory
+    smgo                - Goes to the default directory
+    smgo -              - Goes to the previous directory
+    o <bookmark_name>   - Open the directory associated with "bookmark_name" using xdg-open
+    g                   - default alias for smgo (see Environment variables)
 
     # Mac OS X Only
-  o <bookmark_name>  - Open the directory associated with "bookmark_name" in Finder
-  y <bookmark_name>  - Open the directory associated with "bookmark_name" in a new tab
+    o <bookmark_name>   - Open the directory associated with "bookmark_name" in Finder
+    y <bookmark_name>   - Open the directory associated with "bookmark_name" in a new tab
 
 
 Example
 -------
 
-  $ cd /var/www/
-  $ s webfolder
-  $ cd /usr/local/bin/
-  $ s localbin
-  $ lsm
-  webfolder	 /var/www/
-  localbin	 /usr/local/bin/
-  $ smgo web<tab>
-  $ smgo webfolder	  # cd to /var/www/
-  $ o webfolder	  # Open in file manager (Finder if on a mac)
+    $ cd /var/www/
+    $ s webfolder
+    $ cd /usr/local/bin/
+    $ s localbin
+    $ lsm
+    webfolder	 /var/www/
+    localbin	 /usr/local/bin/
+    $ smgo web<tab>
+    $ smgo webfolder      # cd to /var/www/
+    $ o webfolder         # Open in file manager (Finder if on a mac)
 
 
 
@@ -61,7 +61,6 @@ bookmarks storage
 Stored `~/.sdirs` by default.
 
 Set `SDIRS` to use custom location
-Set `SHELLMARKS_ALIAS` to your preference. Default is `g`
 
 
 Environment variables
@@ -70,6 +69,8 @@ Environment variables
 Set `SHELLMARKS_ITERM_SESSION` to a session name to change the session that is launched when using `y` in iTerm2 on `osx`
 
 If `SHELLMARK_PWD` is set, `pwd` is executed after `smgo` and `pd`
+
+Set `SHELLMARKS_ALIAS` to use your own alias. Default is `g`
 
 Based Off
 ---------

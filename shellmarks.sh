@@ -213,12 +213,12 @@ fi
 function check_help {
 	if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] ; then
 		echo ''
-		echo 's <bookmark_name>  - Saves the current directory as "bookmark_name"'
+		echo 's <bookmark_name>     - Saves the current directory as "bookmark_name"'
 		echo 'smgo <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"'
-		echo 'd <bookmark_name>  - Deletes the bookmark'
+		echo 'd <bookmark_name>     - Deletes the bookmark'
 		echo ''
 		if [ "`uname`" = "Linux" ]; then
-			echo 'o <bookmark_name>  - Open the directory associated with "bookmark_name" in file manager'
+			echo 'o <bookmark_name>   - Open the directory associated with "bookmark_name" in file manager'
 			echo ''
 		fi
 		if [ "`uname`" = "Darwin" ]; then
@@ -227,9 +227,9 @@ function check_help {
 			echo ''
 		fi
 		echo 's                  - Saves the default directory'
-		echo 'smgo                  - Goes to the default directory'
-		echo 'lsm                  - Lists all available bookmarks'
-		echo 'lsm <prefix>         - Lists the bookmark starting with "prefix"'
+		echo 'smgo               - Goes to the default directory'
+		echo 'lsm                - Lists all available bookmarks'
+		echo 'lsm <prefix>       - Lists the bookmark starting with "prefix"'
 		echo '_p <bookmark_name> - Prints the directory associated with "bookmark_name"'
 		echo 'pd <bookmark_name> - Same as "smgo" but uses pushd '
 		if [ $SHELLMARKS_k ]; then

@@ -19,8 +19,8 @@ Usage
 	s <bookmark_name>  - Saves the current directory as "bookmark_name"
 	go <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
 	d <bookmark_name>  - Deletes the bookmark
-	l <bookmark_name>  - Lists the specified bookmark associated with "bookmark_name"
-	l                  - Lists all available bookmarks
+	lsm <bookmark_name>  - Lists the specified bookmark associated with "bookmark_name"
+	lsm                  - Lists all available bookmarks
 
 
 Addition Features
@@ -31,6 +31,7 @@ Addition Features
     s                  - Saves the default directory
     go                  - Goes to the default directory
     go -                - Goes to the previous directory
+    o                   - uses xdg-open to open directory in file manager
 
     # Mac OS X Only
 	o <bookmark_name>  - Open the directory associated with "bookmark_name" in Finder
@@ -44,7 +45,7 @@ Example
 	$ s webfolder
 	$ cd /usr/local/bin/
 	$ s localbin
-	$ l
+	$ lsm
 		webfolder	 /var/www/
 		localbin	 /usr/local/bin/
 	$ go web<tab>

@@ -5,17 +5,17 @@
 
 # USAGE:
 # s <bookmark_name>  - Saves the current directory as "bookmark_name"
-# go <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
+# smgo <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
 # d <bookmark_name>  - Deletes the bookmark
 
 # lsm                  - Lists all available bookmarks
-# lsm <prefix>         - Lists the specified bookmarks startin
-with prefix"
+# lsm <prefix>         - Lists the specified bookmarks starting with prefix"
 # pd <bookmark_name> - pd is the same as `g` but uses pushd
 # s                  - Saves the default directory
-# go                  - Goes to the default directory
-# go -                - Goes to the previous directory
+# smgo                  - Goes to the default directory
+# smgo -                - Goes to the previous directory
 # _p <bookmark_name> - Prints the directory associated with "bookmark_name"
+# g is an alias for smgo
 
 # Mac only (disabled on other systems)
 # o <bookmark_name>  - Open the directory associated with "bookmark_name" in Finder
@@ -56,7 +56,8 @@ function s {
 }
 
 # jump to bookmark
-function go {
+alias g="smgo"
+function smgo {
 	check_help $1
 	source $SDIRS
 	if [ -z $1 ]; then
@@ -209,7 +210,7 @@ function check_help {
 	if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] ; then
 		echo ''
 		echo 's <bookmark_name>  - Saves the current directory as "bookmark_name"'
-		echo 'go <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"'
+		echo 'smgo <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"'
 		echo 'd <bookmark_name>  - Deletes the bookmark'
 		echo ''
 		if [ "`uname`" = "Linux" ]; then
@@ -222,14 +223,14 @@ function check_help {
 			echo ''
 		fi
 		echo 's                  - Saves the default directory'
-		echo 'go                  - Goes to the default directory'
+		echo 'smgo                  - Goes to the default directory'
 		echo 'lsm                  - Lists all available bookmarks'
 		echo 'lsm <prefix>         - Lists the bookmark starting with "prefix"'
 		echo '_p <bookmark_name> - Prints the directory associated with "bookmark_name"'
-		echo 'pd <bookmark_name> - Same as "go" but uses pushd '
+		echo 'pd <bookmark_name> - Same as "smgo" but uses pushd '
 		if [ $SHELLMARKS_k ]; then
 			echo ''
-			echo "k <bookmark_name>  - Tries use 'go', if the bookmark does not exist try autojump's j"
+			echo "k <bookmark_name>  - Tries use 'smgo', if the bookmark does not exist try autojump's j"
 		fi
 		kill -SIGINT $$
 	fi
@@ -271,7 +272,7 @@ function _lsm {
 # validate bookmark name
 function _bookmark_name_valid {
 	exit_message=""
-	if [ "$1" != "$(echo $1 | sed 's/[^A-Za-z0-9_]//go')" ]; then
+	if [ "$1" != "$(echo $1 | sed 's/[^A-Za-z0-9_]//g')" ]; then
 		exit_message="bookmark name is not valid"
 		echo $exit_message
 	fi
@@ -308,10 +309,10 @@ function _purge_line {
 	fi
 }
 
-# bind completion command for o go,p,d,pd to _comp
+# bind completion command for o smgo,p,d,pd to _comp
 if [ $ZSH_VERSION ]; then
 	compctl -K _compzsh o
-	compctl -K _compzsh go
+	compctl -K _compzsh smgo
 	compctl -K _compzsh _p
 	compctl -K _compzsh d
 	compctl -K _compzsh y
@@ -319,7 +320,7 @@ if [ $ZSH_VERSION ]; then
 else
 	shopt -s progcomp
 	complete -F _comp o
-	complete -F _comp go
+	complete -F _comp smgo
 	complete -F _comp _p
 	complete -F _comp d
 	complete -F _comp y
@@ -333,12 +334,12 @@ if [ $SHELLMARKS_k ]; then
 
 		if [ -n "$1"  ]; then
 			if (grep DIR_$1 .sdirs &>/dev/null); then
-				go "$@"
+				smgo "$@"
 			else
 				j "$@"
 			fi
 		else
-			go "$@"
+			smgo "$@"
 		fi
 	}
 

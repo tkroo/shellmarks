@@ -17,7 +17,7 @@ Usage
 -----
 
 	s <bookmark_name>  - Saves the current directory as "bookmark_name"
-	go <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
+	smgo <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
 	d <bookmark_name>  - Deletes the bookmark
 	lsm <bookmark_name>  - Lists the specified bookmark associated with "bookmark_name"
 	lsm                  - Lists all available bookmarks
@@ -29,9 +29,10 @@ Addition Features
     pd <bookmark_name> - `pushd` to the directory associated with "bookmark_name"
     _p <bookmark_name> - Prints the directory associated with "bookmark_name"
     s                  - Saves the default directory
-    go                  - Goes to the default directory
-    go -                - Goes to the previous directory
-    o                   - uses xdg-open to open directory in file manager
+    smgo                 - Goes to the default directory
+    smgo -               - Goes to the previous directory
+    o <bookmark_name>  - Open the directory associated with "bookmark_name" using xdg-open
+		g is an alias for smgo
 
     # Mac OS X Only
 	o <bookmark_name>  - Open the directory associated with "bookmark_name" in Finder
@@ -48,9 +49,9 @@ Example
 	$ lsm
 		webfolder	 /var/www/
 		localbin	 /usr/local/bin/
-	$ go web<tab>
-	$ go webfolder	  # cd to /var/www/
-	$ o webfolder	  # Open in Finder if on a mac
+	$ smgo web<tab>
+	$ smgo webfolder	  # cd to /var/www/
+	$ o webfolder	  # Open in file manager (Finder if on a mac)
 
 
 
@@ -66,7 +67,7 @@ Environment variables
 
 Set `SHELLMARKS_ITERM_SESSION` to a session name to change the session that is launched when using `y` in iTerm2 on `osx`
 
-If `SHELLMARK_PWD` is set, `pwd` is executed after `go` and `pd`
+If `SHELLMARK_PWD` is set, `pwd` is executed after `smgo` and `pd`
 
 Based Off
 ---------

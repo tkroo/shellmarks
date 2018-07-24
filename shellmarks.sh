@@ -9,7 +9,8 @@
 # d <bookmark_name>  - Deletes the bookmark
 
 # lsm                  - Lists all available bookmarks
-# lsm <prefix>         - Lists the specified bookmarks starting with prefix"
+# lsm <prefix>         - Lists the specified bookmarks startin
+with prefix"
 # pd <bookmark_name> - pd is the same as `g` but uses pushd
 # s                  - Saves the default directory
 # go                  - Goes to the default directory
@@ -221,7 +222,7 @@ function check_help {
 			echo ''
 		fi
 		echo 's                  - Saves the default directory'
-		echo 'g                  - Goes to the default directory'
+		echo 'go                  - Goes to the default directory'
 		echo 'lsm                  - Lists all available bookmarks'
 		echo 'lsm <prefix>         - Lists the bookmark starting with "prefix"'
 		echo '_p <bookmark_name> - Prints the directory associated with "bookmark_name"'

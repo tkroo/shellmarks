@@ -19,3 +19,5 @@ install:
 	@echo 'lsm                 - Lists all available bookmarks'
 	@echo 'smgo <tab>           - Tab completion is available for all commands'
 	@echo 'smgo --help          - Complete usage'
+	@echo 'g is an alias for smgo'
+	@echo 'set SHELLMARKS_ALIAS to your preference. Default is g'

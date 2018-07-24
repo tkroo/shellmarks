@@ -24,6 +24,10 @@
 # There is tab completion for all commands
 # based of https://github.com/huyng/bashmarks
 
+# setup prefered alias
+if [ ! -n "$SHELLMARKS_ALIAS" ]; then
+	SHELLMARKS_ALIAS="g"
+fi
 
 # setup file to store bookmarks
 if [ ! -n "$SDIRS" ]; then
@@ -56,7 +60,7 @@ function s {
 }
 
 # jump to bookmark
-alias g="smgo"
+alias $SHELLMARKS_ALIAS="smgo"
 function smgo {
 	check_help $1
 	source $SDIRS

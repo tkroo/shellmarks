@@ -1,5 +1,6 @@
 Shellmarks
 =====
+### This my hacking on [shellmarks](https://github.com/Bilalh/shellmarks) to work with zsh. I recommend using [zshmarks](https://github.com/jocelynmallon/zshmarks)
 
 `shellmarks` is a shell script that allows you to save and jump to commonly used directories with tab completion.
 

@@ -5,17 +5,16 @@
 
 # USAGE:
 # s <bookmark_name>  - Saves the current directory as "bookmark_name"
-# smgo <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
+# g <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"
 # d <bookmark_name>  - Deletes the bookmark
 
-# lsm                  - Lists all available bookmarks
-# lsm <prefix>         - Lists the specified bookmarks starting with prefix"
+# l                  - Lists all available bookmarks
+# l <prefix>         - Lists the specified bookmarks starting with prefix"
 # pd <bookmark_name> - pd is the same as `g` but uses pushd
 # s                  - Saves the default directory
-# smgo                  - Goes to the default directory
-# smgo -                - Goes to the previous directory
+# g                  - Goes to the default directory
+# g -                - Goes to the previous directory
 # _p <bookmark_name> - Prints the directory associated with "bookmark_name"
-# g is an alias for smgo
 
 # Mac only (disabled on other systems)
 # o <bookmark_name>  - Open the directory associated with "bookmark_name" in Finder
@@ -24,10 +23,6 @@
 # There is tab completion for all commands
 # based of https://github.com/huyng/bashmarks
 
-# setup prefered alias
-if [ ! -n "$SHELLMARKS_ALIAS" ]; then
-	SHELLMARKS_ALIAS="g"
-fi
 
 # setup file to store bookmarks
 if [ ! -n "$SDIRS" ]; then
@@ -60,8 +55,7 @@ function s {
 }
 
 # jump to bookmark
-alias $SHELLMARKS_ALIAS="smgo"
-function smgo {
+function g {
 	check_help $1
 	source $SDIRS
 	if [ -z $1 ]; then
@@ -213,12 +207,12 @@ fi
 function check_help {
 	if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] ; then
 		echo ''
-		echo 's <bookmark_name>     - Saves the current directory as "bookmark_name"'
-		echo 'smgo <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"'
-		echo 'd <bookmark_name>     - Deletes the bookmark'
+		echo 's <bookmark_name>  - Saves the current directory as "bookmark_name"'
+		echo 'g <bookmark_name>  - Goes (cd) to the directory associated with "bookmark_name"'
+		echo 'd <bookmark_name>  - Deletes the bookmark'
 		echo ''
 		if [ "`uname`" = "Linux" ]; then
-			echo 'o <bookmark_name>   - Open the directory associated with "bookmark_name" in file manager'
+			echo 'o <bookmark_name>  - Open the directory associated with "bookmark_name" in file manager'
 			echo ''
 		fi
 		if [ "`uname`" = "Darwin" ]; then
@@ -227,14 +221,14 @@ function check_help {
 			echo ''
 		fi
 		echo 's                  - Saves the default directory'
-		echo 'smgo               - Goes to the default directory'
-		echo 'lsm                - Lists all available bookmarks'
-		echo 'lsm <prefix>       - Lists the bookmark starting with "prefix"'
+		echo 'g                  - Goes to the default directory'
+		echo 'lsm                  - Lists all available bookmarks'
+		echo 'lsm <prefix>         - Lists the bookmark starting with "prefix"'
 		echo '_p <bookmark_name> - Prints the directory associated with "bookmark_name"'
-		echo 'pd <bookmark_name> - Same as "smgo" but uses pushd '
+		echo 'pd <bookmark_name> - Same as "g" but uses pushd '
 		if [ $SHELLMARKS_k ]; then
 			echo ''
-			echo "k <bookmark_name>  - Tries use 'smgo', if the bookmark does not exist try autojump's j"
+			echo "k <bookmark_name>  - Tries use 'g', if the bookmark does not exist try autojump's j"
 		fi
 		kill -SIGINT $$
 	fi
@@ -313,10 +307,10 @@ function _purge_line {
 	fi
 }
 
-# bind completion command for o smgo,p,d,pd to _comp
+# bind completion command for o g,p,d,pd to _comp
 if [ $ZSH_VERSION ]; then
 	compctl -K _compzsh o
-	compctl -K _compzsh smgo
+	compctl -K _compzsh g
 	compctl -K _compzsh _p
 	compctl -K _compzsh d
 	compctl -K _compzsh y
@@ -324,7 +318,7 @@ if [ $ZSH_VERSION ]; then
 else
 	shopt -s progcomp
 	complete -F _comp o
-	complete -F _comp smgo
+	complete -F _comp g
 	complete -F _comp _p
 	complete -F _comp d
 	complete -F _comp y
@@ -338,12 +332,12 @@ if [ $SHELLMARKS_k ]; then
 
 		if [ -n "$1"  ]; then
 			if (grep DIR_$1 .sdirs &>/dev/null); then
-				smgo "$@"
+				g "$@"
 			else
 				j "$@"
 			fi
 		else
-			smgo "$@"
+			g "$@"
 		fi
 	}
 
